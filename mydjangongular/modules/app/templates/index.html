@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/"><!--This sets the default directory from which to serve our application-->
+    <title>MyDjangular</title>
+
+    {% load staticfiles %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="{% static 'es6-shim/es6-shim.min.js' %}"></script>
+    <script src="{% static 'systemjs/dist/system-polyfills.js' %}"></script>
+    <script src="{% static 'angular2/es6/dev/src/testing/shims_for_IE.js' %}"></script>
+    <script src="{% static 'angular2/bundles/angular2-polyfills.js' %}"></script>
+    <script src="{% static 'systemjs/dist/system.src.js' %}"></script>
+    <script src="{% static 'rxjs/bundles/Rx.js' %}"></script>
+    <script src="{% static 'angular2/bundles/angular2.js' %}"></script>
+    <script src="{% static 'angular2/bundles/router.dev.js' %}"></script><!--Required for routing-->
+    <script src="{% static 'angular2/bundles/http.js' %}"></script>
+
+
+    <link rel="stylesheet" href="{% static 'src/css/app.css' %}">
+
+</head>
+<body>
+
+
+<my-app>Loading...</my-app>
+
+<script>
+    System.defaultJSExtensions = true;
+    System.config({
+        map: {
+            rxjs:'static/node_modules/rxjs'
+        },
+        packages: {
+            app: {
+                format: 'register',
+                defaultExtension: 'js'
+            }
+        },
+        baseURL: "static"
+    });
+
+    System.import('app/boot').then(null, console.error.bind(console));
+</script>
+</body>
+</html>
