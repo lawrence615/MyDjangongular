@@ -17,7 +17,7 @@ some few things that are not done right. To set up the project,follow the steps 
 
     npm install
 
-####The start gulp on a different tab
+####Then start gulp on a different tab
 
     gulp
 
