@@ -1,7 +1,6 @@
 import {Component} from "angular2/core";
-import {FacilitiesComponent} from "./facilities.component";
-import {NewFacilityComponent} from "./new-facility.component";
 import {Router, RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+import {FacilitiesComponent} from "./facilities/facilities.component";
 @Component({
     selector: 'my-app',
     template: `
@@ -20,7 +19,7 @@ import {Router, RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
                     <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li [class.active]="isActive(['FacilitiesComponent'])"><a [routerLink]="['FacilitiesComponent']">Home</a></li>
-                            <li [class.active]="isActive(['NewFacilityComponent'])"><a [routerLink]="['NewFacilityComponent']">About</a></li>
+                            <!--<li [class.active]="isActive(['NewFacilityComponent'])"><a [routerLink]="['NewFacilityComponent']">About</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -32,8 +31,7 @@ import {Router, RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 })
 
 @RouteConfig([
-    {path: '/facilities', name: 'FacilitiesComponent', component: FacilitiesComponent, useAsDefault: true},
-    {path: '/new-facility', name: 'NewFacilityComponent', component: NewFacilityComponent}
+    {path: '/...', name: 'FacilitiesComponent', component: FacilitiesComponent, useAsDefault: true}
 
 ])
 
@@ -42,8 +40,8 @@ export class AppComponent {
     constructor(private _router:Router) {
     }
 
-    isActive(instruction:any[]):boolean {
-        return this._router.isRouteActive(this._router.generate(instruction));
+    isActive(route:any[]):boolean {
+        return this._router.isRouteActive(this._router.generate(route));
     }
 
 }
