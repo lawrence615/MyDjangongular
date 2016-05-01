@@ -7,6 +7,10 @@ some few things that are not done right. To set up the project,follow the steps 
 
     pip install -r requirements.txt
 
+
+#### Database
+    Create a  mysql database or any other(posgresql) and adjust your settings accordingly in the settings.py
+
 ####To run test server:
 
     python manage.py migrate
