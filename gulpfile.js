@@ -9,16 +9,20 @@ var sourcemaps = require('gulp-sourcemaps');
 var typescript = require('gulp-typescript');
 
 
-//scss to css
+// Source and distribution folder
 var assetsDev = 'static/assets/';
 var assetsProd = 'static/src/';
-
-//typescript to js
 var appDev = 'static/dev/';
 var appProd = 'static/app/';
+var nodePath = './node_modules/';
 
 
 var tsProject = typescript.createProject('tsconfig.json');
+
+//CSS source file: .scss files
+//var css = {
+//    in:
+//};
 
 gulp.task('build-css', function () {
     return gulp.src(assetsDev + 'scss/*.scss')
@@ -37,10 +41,23 @@ gulp.task('build-ts', function () {
 
 });
 
+//// Fonts
+//gulp.task('build-fonts', function () {
+//    return gulp.src([
+//            './node_modules/bootstrap-sass/assets/fonts/bootstrap/*'])
+//        .pipe(gulp.dest(assetsProd + 'fonts/bootstrap/'));
+//});
+// Fonts
+gulp.task('build-fonts', function () {
+    return gulp.src([
+            nodePath + '/font-awesome/fonts/fontawesome-webfont.*'])
+        .pipe(gulp.dest(assetsProd + 'fonts/font-awesome/'));
+});
+
 
 gulp.task('watch', function () {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
     gulp.watch(assetsDev + 'scss/**/*.scss', ['build-css']);
 });
 
-gulp.task('default', ['watch', 'build-ts', 'build-css'])
+gulp.task('default', ['watch', 'build-ts', 'build-css', 'build-fonts']);
