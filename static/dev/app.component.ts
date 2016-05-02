@@ -1,6 +1,8 @@
 import {Component} from "angular2/core";
 import {Router, RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {FacilitiesComponent} from "./facilities/facilities.component";
+import {DashboardMain} from "./dashboard/dashboard-main.component";
+//import 'rxjs/Rx';
 @Component({
     selector: 'my-app',
     template: `
@@ -18,7 +20,8 @@ import {FacilitiesComponent} from "./facilities/facilities.component";
                     </div>
                     <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li [class.active]="isActive(['FacilitiesComponent'])"><a [routerLink]="['FacilitiesComponent']">Home</a></li>
+                            <li [class.active]="isActive(['DashboardComponent'])"><a [routerLink]="['DashboardComponent']">Home</a></li>
+                            <li [class.active]="isActive(['FacilitiesComponent'])"><a [routerLink]="['FacilitiesComponent']">Facilities</a></li>
                             <!--<li [class.active]="isActive(['NewFacilityComponent'])"><a [routerLink]="['NewFacilityComponent']">About</a></li>-->
                         </ul>
                     </div>
@@ -27,11 +30,12 @@ import {FacilitiesComponent} from "./facilities/facilities.component";
             <router-outlet></router-outlet>
         </div>
     `,
-    directives: [FacilitiesComponent, ROUTER_DIRECTIVES]
+    directives: [FacilitiesComponent, DashboardMain, ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
-    {path: '/...', name: 'FacilitiesComponent', component: FacilitiesComponent, useAsDefault: true}
+    {path: '/', name: 'DashboardComponent', component: DashboardMain, useAsDefault: true},
+    {path: '/facilities/...', name: 'FacilitiesComponent', component: FacilitiesComponent}
 
 ])
 

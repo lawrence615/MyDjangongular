@@ -16,7 +16,7 @@ import {NewFacilityComponent} from "./new-facility.component";
 @RouteConfig([
     {path: '/', name: 'FacilitiesList', component: FacilitiesListComponent, useAsDefault: true},
     {path: '/new', name: 'NewFacilityComponent', component: NewFacilityComponent},
-    {path: '/view:id', name: 'FacilityView', component: ViewFacilityComponent}
+    {path: '/view/:id', name: 'FacilityView', component: ViewFacilityComponent}
 ])
 
 export class FacilitiesComponent {

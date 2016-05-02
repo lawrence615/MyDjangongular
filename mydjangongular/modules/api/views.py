@@ -6,3 +6,4 @@ from .serializers import FacilitySerializer
 class FacilityViewSet(viewsets.ModelViewSet):
     queryset = Facility.objects.all()
     serializer_class = FacilitySerializer
+    # pagination_class = PageNumberPagination
