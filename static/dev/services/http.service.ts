@@ -1,9 +1,10 @@
 import {Injectable} from 'angular2/core';
 import {Http} from "angular2/http";
 import {Observable} from "rxjs/Observable";
-import 'rxjs/Rx.js';
+import 'rxjs/Rx'
 import {Headers} from "angular2/http";
 import {URLSearchParams} from "angular2/http";
+
 
 @Injectable()
 
@@ -11,8 +12,12 @@ export class HttpService {
     constructor(private _http:Http) {
     }
 
-    getFacilities():Observable<any> {
-        return this._http.get('http://localhost:8000/api/facilities')
+    getFacilities(page:number):Observable<any> {
+        let params:URLSearchParams = new URLSearchParams();
+        params.set('page', page.toString());
+        return this._http.get('http://localhost:8000/api/facilities', {
+                search: params
+            })
             .map(res => res.json());
     }
 
@@ -32,9 +37,7 @@ export class HttpService {
     }
 
     deleteFacility(id:number):Observable<any> {
-        return this._http.delete('http://localhost:8000/api/facilities/' + id, {
-                //search: params
-            })
-            .map(res => res.json());
+        return this._http.delete(`http://localhost:8000/api/facilities/${id}/`)
+            .map(res => {});
     }
 }
