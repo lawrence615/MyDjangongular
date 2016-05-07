@@ -3,6 +3,9 @@ import {OnInit} from "angular2/core";
 import {HttpService} from "../services/http.service";
 import {Router} from "angular2/router";
 import {FacilitiesFilterPipe} from "../pipes/facilities-filter.pipe";
+import {PaginatePipe} from "ng2-pagination/index";
+import {PaginationControlsCmp} from "ng2-pagination/index";
+import {PaginationService} from "ng2-pagination/index";
 @Component({
     template: `
             <div class="row">
@@ -20,15 +23,15 @@ import {FacilitiesFilterPipe} from "../pipes/facilities-filter.pipe";
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Facility name</th>
                                     <th>Location</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="#facility of response | facilitiesFilter:search_term.value">
-                                    <td>{{ facility.id}}</td>
+                                <tr *ngFor="#facility of response; #i = index">
+
                                     <td>{{ facility.name}}</td>
                                     <td>{{ facility.location}}</td>
                                     <td><a (click)="onView(facility.id)" class="btn btn-primary"> View</a>&nbsp;<a class="btn btn-primary"> Edit</a>&nbsp;<a (click)="onDelete(facility.id)" class="btn btn-danger"> Delete</a> </td>
@@ -37,27 +40,36 @@ import {FacilitiesFilterPipe} from "../pipes/facilities-filter.pipe";
                         </table>
                     </div>
                     <!--<router-outlet></router-outlet>-->
+                    <!--<pagination-controls (pageChange)="onGetFacilities($event)" id="server"></pagination-controls>-->
                 </div>
             </div>
     `,
-    pipes:[FacilitiesFilterPipe]
+    directives: [PaginationControlsCmp],
+    pipes: [FacilitiesFilterPipe, PaginatePipe],
+    providers: [PaginationService]
 })
 
 export class FacilitiesListComponent implements OnInit {
     response:string;
+    totalItems:number;
     facilities_err:boolean = false;
+
+    p:number = 1;
 
     constructor(private _httpService:HttpService, private _router:Router) {
     }
 
 
     ngOnInit():any {
-        this.onGetFacilities();
+        this.onGetFacilities(1);
     }
 
-    onGetFacilities() {
-        this._httpService.getFacilities().subscribe(
-            response => this.response = response.results,
+    onGetFacilities(page:number) {
+        this._httpService.getFacilities(page).subscribe(
+            response => {
+                this.response = response.results,
+                    this.totalItems = response.count
+            },
             error => this.facilities_err = true,
             () => console.log("Completed to load all facilities")
         );
@@ -72,10 +84,8 @@ export class FacilitiesListComponent implements OnInit {
     }
 
     onDelete(id:number) {
-        this._httpService.deleteFacility(id).subscribe(
-            response => this.response = response,
-            error => console.log(error),
-            () => console.log("delete complete")
-        );
+        this._httpService.deleteFacility(id).subscribe(() => {
+            this.onView(id)
+        });
     }
 }
