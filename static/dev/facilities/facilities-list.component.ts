@@ -14,7 +14,7 @@ import {PaginationService} from "ng2-pagination/index";
 
                     <div class="panel panel-default">
                         <div class="panel-heading">Facilities
-                            <a (click)="onAddFacility()" class="btn btn-link pull-right"><span class="fa fa-plus"></span> Add Facility</a>
+                            <a (click)="onAddFacility()" class="btn btn-sm btn-primary btn-create pull-right"><span class="fa fa-plus"></span> Add Facility</a>
                         </div>
                         <br>
                         <div class="pull-right">
@@ -26,7 +26,7 @@ import {PaginationService} from "ng2-pagination/index";
 
                                     <th>Facility name</th>
                                     <th>Location</th>
-                                    <th>Action</th>
+                                    <th><em class="fa fa-cog"></em></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,7 +34,7 @@ import {PaginationService} from "ng2-pagination/index";
 
                                     <td>{{ facility.name}}</td>
                                     <td>{{ facility.location}}</td>
-                                    <td><a (click)="onView(facility.id)" class="btn btn-primary"> View</a>&nbsp;<a class="btn btn-primary"> Edit</a>&nbsp;<a (click)="onDelete(facility.id)" class="btn btn-danger"> Delete</a> </td>
+                                    <td><a (click)="onView(facility.id)" class="btn btn-primary"> <em class="fa fa-eye"></em></a>&nbsp;<a class="btn btn-primary"><em class="fa fa-pencil"></em></a>&nbsp;<a (click)="onDelete(facility.id)" class="btn btn-danger"><em class="fa fa-trash"></em></a> </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,7 +70,10 @@ export class FacilitiesListComponent implements OnInit {
                 this.response = response.results,
                     this.totalItems = response.count
             },
-            error => this.facilities_err = true,
+            error => {
+                console.log(error),
+                    this.facilities_err = true
+            },
             () => console.log("Completed to load all facilities")
         );
     }

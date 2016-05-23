@@ -15,17 +15,26 @@ export class HttpService {
     getFacilities(page:number):Observable<any> {
         let params:URLSearchParams = new URLSearchParams();
         params.set('page', page.toString());
-        return this._http.get('http://localhost:8000/api/facilities', {
-                search: params
+        let headers = new Headers();
+        headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
+        return this._http.get('http://localhost:8000/api/facilities/', {
+                //search: params,
+                headers: headers
             })
-            .map(res => res.json());
+            .map(res => {
+                console.log(res.status);
+                if (res.status == 200) {
+                    return res.json();
+                }
+            });
     }
 
     createFacility(post:{name: string, location: string}):Observable<any> {
         const body = JSON.stringify(post);
-        //console.log(body);
+        console.log(localStorage.getItem('auth_token'));
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
         return this._http.post('http://localhost:8000/api/facilities/', body, {
             headers: headers
         }).map(res=>res.json());
@@ -38,6 +47,7 @@ export class HttpService {
 
     deleteFacility(id:number):Observable<any> {
         return this._http.delete(`http://localhost:8000/api/facilities/${id}/`)
-            .map(res => {});
+            .map(res => {
+            });
     }
 }

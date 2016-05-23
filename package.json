@@ -8,18 +8,22 @@
     "gulp": "gulp",
     "start": "concurrent \"npm run gulp\" \"npm run lite\" "
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lawrence615/MyDjangongular.git"
+  },
   "author": "Lawrence",
   "license": "ISC",
   "dependencies": {
     "angular2": "2.0.0-beta.14",
-    "systemjs": "0.19.25",
+    "bootstrap-sass": "^3.3.6",
     "es6-shim": "^0.35.0",
+    "font-awesome": "^4.6.1",
+    "ng2-pagination": "^0.2.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.6.6",
-    "bootstrap-sass": "^3.3.6",
-    "font-awesome": "^4.6.1",
-    "ng2-pagination": "^0.2.0"
+    "systemjs": "0.19.25",
+    "zone.js": "0.6.6"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",

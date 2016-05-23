@@ -17,9 +17,11 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from django.contrib import admin
 from modules.app.views import HomeView
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     url(r'^$', HomeView.as_view()),
     url(r'^api/', include('mydjangongular.modules.api.urls')),
+    url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^admin/', admin.site.urls),
 ]
